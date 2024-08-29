@@ -1,4 +1,8 @@
-import type { ParsedResourceIds, SubgraphConfig, SubgraphConfigs } from "./config";
+import type {
+  ParsedResourceIds,
+  SubgraphConfig,
+  SubgraphConfigs,
+} from "./config";
 
 const parseResourceIds = (resourceIds: string): ParsedResourceIds => {
   return resourceIds
@@ -36,16 +40,17 @@ export const generateSchemasMapping = ({
     Object.entries(parsedResourceIds).map(([subgraphId, chains]) => {
       return [
         subgraphId,
-	Object.fromEntries(Object.entries(chains).map(([chainId, resourceId]) => {
-          return [
-            chainId,
-	    url
-	      .replace("[apiKey]", apiKey)
-	      .replace("[subgraphId]", subgraphId)
-	      .replace("[resourceId]", resourceId)
-	  ];
-	})
-       ),
+        Object.fromEntries(
+          Object.entries(chains).map(([chainId, resourceId]) => {
+            return [
+              chainId,
+              url
+                .replace("[apiKey]", apiKey)
+                .replace("[subgraphId]", subgraphId)
+                .replace("[resourceId]", resourceId),
+            ];
+          })
+        ),
       ];
     })
   );
@@ -61,10 +66,10 @@ export const generateCodegenConfig = (config: SubgraphConfigs): any => {
     Object.entries(schemas).forEach(([subgraphId, chains]) => {
       generates[`./src/subgraphs/gql/${subgraphId}/`] = {
         preset: "client",
-	schema: Object.values(chains)[0],
-	documents: queriesDirectory
-	  ? `${queriesDirectory}/${subgraphId}/**/*.ts`
-	  : undefined,
+        schema: Object.values(chains)[0],
+        documents: queriesDirectory
+          ? `${queriesDirectory}/${subgraphId}/**/*.ts`
+          : undefined,
       };
     });
   }
