@@ -72,3 +72,31 @@ export const useSubgraphMetadata = ({
 
   return data as SubgraphMetadataQuery["_meta"];
 };
+
+export const useSubgraphIndexingStatus = ({
+  chain,
+  resource,
+  schemaConfig,
+}: {
+  chain: Chain;
+  resource: string;
+  schemaConfig: SchemaMappingConfig;
+}) => {
+  const meta = useSubgraphMetadata({
+    chainId: chain.id,
+    resource,
+    schemaConfig,
+  });
+  const subgraphBlockNumber = BigInt(meta?.block.number);
+
+  const networkBlockNumber = useNetworkBlockNumber({ chain });
+
+  return {
+    chain,
+    isSynced: subgraphBlockNumber === networkBlockNumber,
+    hasIndexingErrors: meta?.hasIndexingErrors,
+    networkBlockNumber,
+    resource,
+    subgraphBlockNumber,
+  };
+};
