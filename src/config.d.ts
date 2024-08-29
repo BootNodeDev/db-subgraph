@@ -7,6 +7,9 @@ export interface SubgraphConfig {
   queriesDirectory?: string;
 }
 
+export interface SchemaMappingConfig
+  extends Omit<SubgraphConfig, "queriesDirectory"> {}
+
 export interface SubgraphConfigs {
   subgraphs: Array<SubgraphConfig>;
 }

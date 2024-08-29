@@ -1,6 +1,6 @@
 import type {
   ParsedResourceIds,
-  SubgraphConfig,
+  SchemaMappingConfig,
   SubgraphConfigs,
 } from "./config";
 
@@ -27,7 +27,7 @@ export const generateSchemasMapping = ({
   environment,
   developmentUrl,
   productionUrl,
-}: Omit<SubgraphConfig, "queriesDirectory">) => {
+}: SchemaMappingConfig) => {
   const url = environment === "development" ? developmentUrl : productionUrl;
 
   if (!url) {

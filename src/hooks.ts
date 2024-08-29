@@ -6,7 +6,8 @@ import {
 } from "@tanstack/react-query";
 import { createPublicClient, http, type Chain } from "viem";
 
-import type { SubgraphMetadataQuery } from "./config";
+import type { SchemaMappingConfig, SubgraphMetadataQuery } from "./config";
+import { generateSchemasMapping } from "./utils";
 
 export const useNetworkBlockNumber = ({
   chain,
@@ -33,11 +34,15 @@ export const useSubgraphMetadata = ({
   chainId,
   options = {},
   resource,
+  schemaConfig,
 }: {
   chainId: number;
   options?: Omit<UseSuspenseQueryOptions, "queryKey" | "queryFn">;
   resource: string;
+  schemaConfig: SchemaMappingConfig;
 }) => {
+  const mappings = generateSchemasMapping(schemaConfig);
+
   const { data } = useSuspenseQuery({
     queryKey: ["subgraphMetadata", resource, chainId],
     queryFn: async () => {
