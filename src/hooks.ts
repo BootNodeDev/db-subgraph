@@ -4,6 +4,7 @@ import {
   useSuspenseQuery,
   type UseSuspenseQueryOptions,
 } from "@tanstack/react-query";
+import request, { gql } from "graphql-request";
 import { createPublicClient, http, type Chain } from "viem";
 
 import type { SchemaMappingConfig, SubgraphMetadataQuery } from "./config";
@@ -46,11 +47,24 @@ export const useSubgraphMetadata = ({
   const { data } = useSuspenseQuery({
     queryKey: ["subgraphMetadata", resource, chainId],
     queryFn: async () => {
-      return {
-        block: {
-          number: 111111,
-        },
-      };
+      const { _meta } = await request<SubgraphMetadataQuery>(
+        mappings[resource][chainId],
+        gql`
+          query {
+            _meta {
+              block {
+                hash
+                number
+                timestamp
+              }
+              deployment
+              hasIndexingErrors
+            }
+          }
+        `
+      );
+
+      return _meta;
     },
     refetchInterval: 10_000,
     ...options,
