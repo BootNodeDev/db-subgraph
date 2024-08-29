@@ -6,9 +6,11 @@ import {
 } from "@tanstack/react-query";
 import { createPublicClient, http, type Chain } from "viem";
 
+import type { SubgraphMetadataQuery } from "./config";
+
 export const useNetworkBlockNumber = ({
   chain,
-  options,
+  options = {},
 }: {
   chain: Chain;
   options?: Omit<UseSuspenseQueryOptions, "queryKey" | "queryFn">;
@@ -25,4 +27,29 @@ export const useNetworkBlockNumber = ({
   });
 
   return data as bigint | undefined;
+};
+
+export const useSubgraphMetadata = ({
+  chainId,
+  options = {},
+  resource,
+}: {
+  chainId: number;
+  options?: Omit<UseSuspenseQueryOptions, "queryKey" | "queryFn">;
+  resource: string;
+}) => {
+  const { data } = useSuspenseQuery({
+    queryKey: ["subgraphMetadata", resource, chainId],
+    queryFn: async () => {
+      return {
+        block: {
+          number: 111111,
+        },
+      };
+    },
+    refetchInterval: 10_000,
+    ...options,
+  });
+
+  return data as SubgraphMetadataQuery["_meta"];
 };
