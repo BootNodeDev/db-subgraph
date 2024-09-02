@@ -26,10 +26,13 @@
   ],
   "author": "bootnodedev",
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "@graphql-codegen/typescript-graphql-request": "^6",
+    "graphql": "^16",
+    "graphql-request": "^6"
+  },
+  "peerDependencies": {
     "@tanstack/react-query": "^5",
-    "graphql-request": "^6",
     "react": "^18",
     "viem": "^2"
   },
