@@ -129,16 +129,19 @@ export const generateCodegenConfig = (
   const generates: CodegenConfig["generates"] = {};
 
   for (const subgraph of config.subgraphs) {
-    const { queriesDirectory, ...subgraphConfig } = subgraph;
+    const { destinationDirectory, queriesDirectory, ...subgraphConfig } =
+      subgraph;
     const schemas = generateSchemasMapping(subgraphConfig);
 
     Object.entries(schemas).forEach(([subgraphId, chains]) => {
-      generates[`./src/subgraphs/gql/${subgraphId}/`] = {
+      generates[
+        `${destinationDirectory ?? "./src/subgraphs/gql"}/${subgraphId}/`
+      ] = {
         preset: "client",
         schema: Object.values(chains)[0],
-        documents: queriesDirectory
-          ? `${queriesDirectory}/${subgraphId}/**/*.ts`
-          : undefined,
+        documents: `${
+          queriesDirectory ?? "./src/subgraphs/queries"
+        }/${subgraphId}/**/*.ts`,
       };
     });
   }

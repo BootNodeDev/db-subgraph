@@ -1,6 +1,7 @@
 export interface SubgraphConfig {
   apiKey: string;
   chainsResourceIds: string;
+  destinationDirectory?: string;
   developmentUrl?: string;
   environment: "development" | "production";
   productionUrl?: string;
@@ -8,7 +9,7 @@ export interface SubgraphConfig {
 }
 
 export interface SchemaMappingConfig
-  extends Omit<SubgraphConfig, "queriesDirectory"> {}
+  extends Omit<SubgraphConfig, "queriesDirectory" | "destinationDirectory"> {}
 
 export interface SubgraphConfigs {
   subgraphs: Array<SubgraphConfig>;
