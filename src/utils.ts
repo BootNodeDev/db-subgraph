@@ -1,3 +1,4 @@
+import type { CodegenConfig } from "@graphql-codegen/cli";
 import type {
   ParsedResourceIds,
   SchemaMappingConfig,
@@ -122,8 +123,10 @@ export const generateSchemasMapping = ({
  * @param {SubgraphConfigs} config - The configuration object.
  * @returns @graphql-codegen/cli configuration object.
  */
-export const generateCodegenConfig = (config: SubgraphConfigs): any => {
-  const generates: any = {};
+export const generateCodegenConfig = (
+  config: SubgraphConfigs
+): CodegenConfig => {
+  const generates: CodegenConfig["generates"] = {};
 
   for (const subgraph of config.subgraphs) {
     const { queriesDirectory, ...subgraphConfig } = subgraph;
