@@ -4,3 +4,10 @@ export {
   useSubgraphIndexingStatus,
   useSubgraphMetadata,
 } from "./hooks";
+export type {
+  ParsedResourceIds,
+  SchemaMappingConfig,
+  SubgraphConfig,
+  SubgraphConfigs,
+  SubgraphMetadataQuery,
+} from "./config";
