@@ -1,5 +1,5 @@
 {
-  "name": "db-subgraph",
+  "name": "@bootnodedev/db-subgraph",
   "version": "0.1.0",
   "description": "Subgraph batteries for dAppBooster",
   "type": "module",
