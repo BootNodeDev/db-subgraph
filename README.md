@@ -7,7 +7,7 @@ This package provides a flexible and reusable solution for generating GraphQL cl
 This package uses pnpm as the preferred package manager. First, install the package along with other required dependencies:
 
 ```bash
-pnpm add db-subgraph graphql graphql-request
+pnpm add @bootnodedev/db-subgraph graphql graphql-request
 ```
 
 Then, add the development dependencies:
@@ -25,7 +25,7 @@ This separation ensures that the runtime dependencies are installed in your main
 Create a codegen file (e.g., `src/subgraphs/codegen.ts`) in your project:
 
 ```typescript
-import { generateCodegenConfig } from "db-subgraph";
+import { generateCodegenConfig } from "@bootnodedev/db-subgraph";
 import { loadEnv } from "vite";
 
 const env = loadEnv("subgraphs", process.cwd(), "");
@@ -53,7 +53,7 @@ Add a script to your `package.json` to run the code generation:
 ```json
 {
   "scripts": {
-    "codegen": "graphql-codegen --config ./src/subgraphs/codegen.ts"
+    "subgraph-codegen": "graphql-codegen --config ./src/subgraphs/codegen.ts"
   }
 }
 ```
@@ -61,7 +61,7 @@ Add a script to your `package.json` to run the code generation:
 Now you can generate your GraphQL clients by running:
 
 ```bash
-pnpm run codegen
+pnpm run subgraph-codegen
 ```
 
 ### 3. Consume the queries
