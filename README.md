@@ -90,7 +90,7 @@ The `PackageConfig` interface accepts the following options for each subgraph:
 You can configure multiple subgraphs by adding more objects to the `subgraphs` array in your configuration:
 
 ```typescript
-export const graphqlConfig: PackageConfig = {
+export default generateCodegenConfig({
   subgraphs: [
     {
       // First subgraph configuration
@@ -100,7 +100,7 @@ export const graphqlConfig: PackageConfig = {
     },
     // Add more as needed
   ],
-};
+});
 ```
 
 ## Generated Files
